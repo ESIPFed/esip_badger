@@ -6,7 +6,7 @@ Static badge generator for ESIP Federation projects.
 Supported Options:
 
 | Badge | Description |
------------------------
+|-------|-------------|
 | Funded | - |
 | Member | - |
 | Collaboration | - |
