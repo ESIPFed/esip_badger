@@ -8,10 +8,10 @@ Supported Options:
 | Badge | Description |
 |-------|-------------|
 | Funded | - |
-| Member | - |
-| Collaboration | - |
 | Testbed | - |
 | FUNding Friday | - |
+| Member | - |
+| Collaboration | - |
 
 
 Installation

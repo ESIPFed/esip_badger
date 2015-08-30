@@ -7,7 +7,7 @@ import svgwrite
 
 _badge_types = {
     "funded": {"color": "#A1D3E4", "title": "Funded"},
-    "funding friday": {"color": "#A1D3E4", "title": "FUNding Friday"},
+    "fundingfriday": {"color": "#A1D3E4", "title": "FUNding Friday"},
     "testbed": {"color": "#A1D3E4", "title": "Testbed"},
     "member": {"color": "#388477", "title": "Member"},
     "collaborator": {"color": "#388477", "title": "Collaborator"}
