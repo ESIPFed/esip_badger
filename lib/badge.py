@@ -29,32 +29,52 @@ class Badge():
     def _text_width(self, text):
         return 7 * len(text)
 
-    def _calculate_widths(self, text):
-        right_width = self._sep + self._text_width(text) + self._pad
-        left_width = self._pad + self._text_width('ESIP') + self._sep
+    def _calculate_widths(self):
+        right_width = self._sep + \
+            self._text_width(self.right.get("text")) + \
+            self._pad
+        left_width = self._pad + \
+            self._text_width(self.left.get("text")) + \
+            self._sep
         return left_width, right_width, left_width + right_width
 
-    def _generate_text(self, text, x, y):
+    def _generate_text(self, text, x, y, href='', fill=''):
         # return the two text svg elements, text and shadow
         # x and y as strings
-        yield svgwrite.text.Text(
+
+        # TODO: sort out which of these should have the href (and
+        # is it the mask that's the issue?)
+        svg_text = svgwrite.text.Text(
             text=text,
             x=[str(x)],
             y=[str(y)],
             **{"fill": "#010101", "fill-opacity": ".3"}
         )
-        yield svgwrite.text.Text(text=text, x=[str(x)], y=[str(y - 1)])
+        # currently doing bupkus
+#         if href:
+#             svg_text.add(
+#                 svgwrite.container.Hyperlink(href=href, target='_blank'))
 
-    def generate_badge(self, badge_type):
-        badge_type = _badge_types.get(badge_type.lower())
-        badge_color = badge_type.get('color')
-        badge_name = badge_type.get('title')
-        lw, rw, tw = self._calculate_widths(badge_name)
+        yield svg_text
+
+        extras = {"fill": fill} if fill else {}
+        yield svgwrite.text.Text(
+            text=text,
+            x=[str(x)],
+            y=[str(y - 1)],
+            **extras
+        )
+
+    def generate_badge(self):
+        lw, rw, tw = self._calculate_widths()
 
         # build the svg
         svg = svgwrite.container.SVG(
             size=(tw, 20),
-            **{"xmlns": "http://www.w3.org/2000/svg"}
+            **{
+                "xmlns": "http://www.w3.org/2000/svg",
+                "xmlns:xlink": "http://www.w3.org/1999/xlink"
+            }
         )
 
         # add the linear gradient
@@ -67,19 +87,31 @@ class Badge():
 
         # add the mask
         mask = svgwrite.masking.Mask(**{"id": "a"})
-        mask_rect = svgwrite.shapes.Rect(size=(tw, 20), rx=3, **{"fill": "#fff"})
+        mask_rect = svgwrite.shapes.Rect(
+            size=(tw, 20),
+            rx=3,
+            **{"fill": "#fff"}
+        )
         mask.add(mask_rect)
         svg.add(mask)
 
         # and the group, with mask
         group = svgwrite.container.Group(**{"mask": "url(#a)"})
-        group.add(svgwrite.shapes.Rect(size=(lw, self._height), **{"fill": _esip}))
+        group.add(svgwrite.shapes.Rect(
+            size=(lw, self._height),
+            **{"fill": self.left.get('background')})
+        )
         group.add(svgwrite.shapes.Rect(
             size=(rw, self._height),
             insert=(lw, 0),
-            **{"fill": badge_color})
+            **{"fill": self.right.get('background')})
         )
-        group.add(svgwrite.shapes.Rect(size=(tw, self._height), **{"fill": "url(#b)"}))
+        group.add(
+            svgwrite.shapes.Rect(
+                size=(tw, self._height),
+                **{"fill": "url(#b)"}
+            )
+        )
         svg.add(group)
 
         # add the text group
@@ -90,9 +122,17 @@ class Badge():
             "font-size": "11"
         }
         text_group = svgwrite.container.Group(**tg)
-        for t in self._generate_text('ESIP', (lw / 2) + 1, 15):
+        for t in self._generate_text(
+                self.left.get('text'),
+                (lw / 2) + 1, 15,
+                href=self.left.get('href', '')
+        ):
             text_group.add(t)
-        for t in self._generate_text(badge_name, lw + ((rw / 2) - 1), 15):
+        for t in self._generate_text(
+            self.right.get('text'),
+            lw + ((rw / 2) - 1),
+            15
+        ):
             text_group.add(t)
         svg.add(text_group)
 
