@@ -79,7 +79,7 @@ class Badge():
                 **{"shape-rendering": "crispEdges"})
             group.add(svgwrite.shapes.Rect(
                 size=(lw, self._height),
-                **{"fill": self.left.get('background')})
+                **{"fill": self.left.get('background', '#555')})
             )
             group.add(svgwrite.shapes.Rect(
                 size=(rw, self._height),
@@ -92,7 +92,7 @@ class Badge():
         group = svgwrite.container.Group(**{"mask": "url(#a)"})
         group.add(svgwrite.shapes.Rect(
             size=(lw, self._height),
-            **{"fill": self.left.get('background')})
+            **{"fill": self.left.get('background', '#555')})
         )
         group.add(svgwrite.shapes.Rect(
             size=(rw, self._height),
@@ -125,11 +125,22 @@ class Badge():
                 x=[str((lw / 2) + 1)],
                 y=['14']
             ))
-            group.add(svgwrite.text.Text(
-                text=self.right.get('text'),
-                x=[str(lw + (rw / 2) - 1)],
-                y=['14']
-            ))
+
+            if 'href' in self.right:
+                a = svgwrite.container.Hyperlink(self.right.get('href'))
+                a.add(svgwrite.text.Text(
+                    text=self.right.get('text'),
+                    x=[str(lw + (rw / 2) - 1)],
+                    y=['14'],
+                    **{'id': 'rlink'}
+                ))
+                group.add(a)
+            else:
+                group.add(svgwrite.text.Text(
+                    text=self.right.get('text'),
+                    x=[str(lw + (rw / 2) - 1)],
+                    y=['14']
+                ))
         elif self.style == 'flat round':
             # left
             lx = (lw / 2)  # + 1
@@ -153,11 +164,21 @@ class Badge():
                 y=['15'],
                 **{"fill": "#010101", "fill-opacity": ".3"}
             ))
-            group.add(svgwrite.text.Text(
-                text=self.right.get('text'),
-                x=[str(lx)],
-                y=['14']
-            ))
+            if 'href' in self.right:
+                a = svgwrite.container.Hyperlink(self.right.get('href'))
+                a.add(svgwrite.text.Text(
+                    text=self.right.get('text'),
+                    x=[str(lx)],
+                    y=['14'],
+                    **{'id': 'rlink'}
+                ))
+                group.add(a)
+            else:
+                group.add(svgwrite.text.Text(
+                    text=self.right.get('text'),
+                    x=[str(lx)],
+                    y=['14']
+                ))
         elif self.style == 'plastic':
             # left
             lx = (lw / 2) + 1
@@ -181,11 +202,22 @@ class Badge():
                 y=['14'],
                 **{"fill": "#010101", "fill-opacity": ".3"}
             ))
-            group.add(svgwrite.text.Text(
-                text=self.right.get('text'),
-                x=[str(lx)],
-                y=['13']
-            ))
+
+            if 'href' in self.right:
+                a = svgwrite.container.Hyperlink(self.right.get('href'))
+                a.add(svgwrite.text.Text(
+                    text=self.right.get('text'),
+                    x=[str(lx)],
+                    y=['13'],
+                    **{'id': 'rlink'}
+                ))
+                group.add(a)
+            else:
+                group.add(svgwrite.text.Text(
+                    text=self.right.get('text'),
+                    x=[str(lx)],
+                    y=['13']
+                ))
 
         return group
 
@@ -202,6 +234,13 @@ class Badge():
             **extras
         )
 
+        if 'href' in self.left or 'href' in self.right:
+            # add the cdata style blob
+            style_content = '''#llink:hover { fill:url(#b); stroke:#ccc; }
+            #rlink:hover { fill:#4183C4; }
+            '''
+            svg.add(svgwrite.container.Style(content=style_content))
+
         if self.style in ['flat round', 'plastic']:
             svg.add(self._generate_linear_gradient())
 
@@ -210,5 +249,20 @@ class Badge():
         svg.add(self._generate_background(lw, rw, tw))
 
         svg.add(self._generate_text_group(lw, rw))
+
+        if 'href' in self.left:
+            # we add it to the end
+            a = svgwrite.container.Hyperlink(href=self.left.get('href'))
+            a.add(svgwrite.shapes.Rect(
+                size=(lw, self._height),
+                **{
+                    "id": "llink",
+                    "stroke": "#d5d5d5",
+                    "fill": "url(#a)",
+                    "x": ".5",
+                    "y": ".5"
+                }
+            ))
+            svg.add(a)
 
         return svg.tostring()
