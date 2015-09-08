@@ -237,7 +237,7 @@ class Badge():
         if 'href' in self.left or 'href' in self.right:
             # add the cdata style blob
             style_content = '''#llink:hover { fill:url(#b); stroke:#ccc; }
-            #rlink:hover { fill:#4183C4; }
+            #rlink:hover { fill:#ddd; }
             '''
             svg.add(svgwrite.container.Style(content=style_content))
 
@@ -257,7 +257,6 @@ class Badge():
                 size=(lw, self._height),
                 **{
                     "id": "llink",
-                    "stroke": "#d5d5d5",
                     "fill": "url(#a)",
                     "x": ".5",
                     "y": ".5"
