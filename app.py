@@ -16,7 +16,7 @@ _badge_types = {
 _esip = {"text": "ESIP", "href": "http://esipfed.org"}
 
 
-@app.route("/<badge>")
+@app.route("/<badge>.svg")
 def get_badge(badge):
     '''
     routing:
@@ -35,7 +35,9 @@ def get_badge(badge):
     badger = Badge(_esip, right, style=style)
     svg = badger.generate_badge()
     rsp = make_response(svg, 200)
-    rsp.headers['Content-Type'] = 'image/svg+xml'
+    rsp.headers['Content-Type'] = 'image/svg+xml;charset=utf-8'
+    rsp.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+
     return rsp
 
 

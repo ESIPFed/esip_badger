@@ -27,7 +27,7 @@ class Badge():
     _sep = 4
     _height = 20
 
-    def __init__(self, left, right, style="flat"):
+    def __init__(self, left, right, style="flat round"):
         self.left = left
         self.right = right
         self.style = style
@@ -90,21 +90,34 @@ class Badge():
 
         # and the other two
         group = svgwrite.container.Group(**{"mask": "url(#a)"})
-        group.add(svgwrite.shapes.Rect(
-            size=(lw, self._height),
-            **{"fill": self.left.get('background', '#555')})
-        )
-        group.add(svgwrite.shapes.Rect(
-            size=(rw, self._height),
-            insert=(lw, 0),
-            **{"fill": self.right.get('background')})
-        )
-        group.add(
-            svgwrite.shapes.Rect(
-                size=(tw, self._height),
-                **{"fill": "url(#b)"}
-            )
-        )
+        group.add(svgwrite.path.Path(
+            d="M0 0h%(left)sv%(height)sH0z" % {"height": self._height, "left": lw},
+            **{"fill": self.left.get('background', '#555')}
+        ))
+        group.add(svgwrite.path.Path(
+            d="M%(left)s 0h%(right)sv%(height)sH%(left)sz" % {"height": self._height, "left": lw, "right": rw},
+            **{"fill": self.right.get('background')}
+        ))
+        group.add(svgwrite.path.Path(
+            d="M0 0h%(total)sv%(height)sH0z" % {"height": self._height, "total": tw},
+            **{"fill": "url(#b)"}
+        ))
+
+        # group.add(svgwrite.shapes.Rect(
+        #     size=(lw, self._height),
+        #     **{"fill": self.left.get('background', '#555')})
+        # )
+        # group.add(svgwrite.shapes.Rect(
+        #     size=(rw, self._height),
+        #     insert=(lw, 0),
+        #     **{"fill": self.right.get('background')})
+        # )
+        # group.add(
+        #     svgwrite.shapes.Rect(
+        #         size=(tw, self._height),
+        #         **{"fill": "url(#b)"}
+        #     )
+        # )
         return group
 
     def _generate_text_group(self, lw, rw):

@@ -5,14 +5,13 @@ Static badge generator for ESIP Federation projects.
 
 Supported Options:
 
-| Badge | Description |
-|-------|-------------|
-| Funded | - |
-| Testbed | - |
-| FUNding Friday | - |
-| Member | - |
-| Collaboration | - |
+- Funded
+- Testbed
+- FUNding Friday (parameter = fundingfriday)
+- Member
+- Collaboration
 
+Supports the three shields.io styles: flat-round (default), flat-square and plastic.
 
 
 Installation
@@ -23,6 +22,8 @@ Coming soon.
 
 Use
 ===
+
+To include the badge in a README (or other markdown file):
 
 '''
 <img src="http://example.com/funded.svg">
