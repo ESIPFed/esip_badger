@@ -4,12 +4,12 @@ app = Flask(__name__)
 from flask import request, make_response, abort
 from lib.badge import Badge
 
-
+# this can include a link (key: href)
 _badge_types = {
     "funded": {"background": "#A1D3E4", "text": "Funded"},
     "fundingfriday": {"background": "#A1D3E4", "text": "FUNding Friday"},
     "testbed": {"background": "#A1D3E4", "text": "Testbed"},
-    "member": {"background": "#3FA1B9", "text": "Member", "href": "http://google.com"},
+    "member": {"background": "#3FA1B9", "text": "Member"},
     "collaborator": {"background": "#3FA1B9", "text": "Collaborator"}
 }
 
