@@ -32,8 +32,9 @@ class Badge():
         self.right = right
         self.style = style
 
-        if style == 'plastic':
-            self._height = 18
+        # NOTE: this is trimming off the rounded edges along the bttm
+        # if style == 'plastic':
+        #     self._height = 18
 
     def _text_width(self, text):
         return 7 * len(text)
@@ -51,7 +52,7 @@ class Badge():
     def _generate_linear_gradient(self):
         lg = svgwrite.gradients.LinearGradient(
             end=(0, "100%"),
-            **{"id": "b"}
+            **{"id": "linear_gradient"}
         )
         if self.style == 'flat round':
             lg.add_stop_color(offset=0, color="#bbb", opacity=".1")
@@ -64,10 +65,10 @@ class Badge():
         return lg
 
     def _generate_mask(self, tw):
-        mask = svgwrite.masking.Mask(**{"id": "a"})
+        mask = svgwrite.masking.Mask(**{"id": "background_mask"})
         mask_rect = svgwrite.shapes.Rect(
             size=(tw, self._height),
-            rx=4 if self.style == 'plastic' else 3,
+            rx=3,
             **{"fill": "#fff"}
         )
         mask.add(mask_rect)
@@ -89,35 +90,22 @@ class Badge():
             return group
 
         # and the other two
-        group = svgwrite.container.Group(**{"mask": "url(#a)"})
+        group = svgwrite.container.Group(**{"mask": "url(#background_mask)"})
         group.add(svgwrite.path.Path(
-            d="M0 0h%(left)sv%(height)sH0z" % {"height": self._height, "left": lw},
+            d="M0 0h%(left)sv%(height)sH0z" % {
+                "height": self._height, "left": lw},
             **{"fill": self.left.get('background', '#555')}
         ))
         group.add(svgwrite.path.Path(
-            d="M%(left)s 0h%(right)sv%(height)sH%(left)sz" % {"height": self._height, "left": lw, "right": rw},
+            d="M%(left)s 0h%(right)sv%(height)sH%(left)sz" % {
+                "height": self._height, "left": lw, "right": rw},
             **{"fill": self.right.get('background')}
         ))
         group.add(svgwrite.path.Path(
-            d="M0 0h%(total)sv%(height)sH0z" % {"height": self._height, "total": tw},
-            **{"fill": "url(#b)"}
+            d="M0 0h%(total)sv%(height)sH0z" % {
+                "height": self._height, "total": tw},
+            **{"fill": "url(#linear_gradient)"}
         ))
-
-        # group.add(svgwrite.shapes.Rect(
-        #     size=(lw, self._height),
-        #     **{"fill": self.left.get('background', '#555')})
-        # )
-        # group.add(svgwrite.shapes.Rect(
-        #     size=(rw, self._height),
-        #     insert=(lw, 0),
-        #     **{"fill": self.right.get('background')})
-        # )
-        # group.add(
-        #     svgwrite.shapes.Rect(
-        #         size=(tw, self._height),
-        #         **{"fill": "url(#b)"}
-        #     )
-        # )
         return group
 
     def _generate_text_group(self, lw, rw):
