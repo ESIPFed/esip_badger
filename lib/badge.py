@@ -1,6 +1,7 @@
 # -*- coding: ISO-8859-15 -*-
 
 import svgwrite
+import re
 
 
 class Badge():
@@ -23,30 +24,42 @@ class Badge():
     '''
 
     # default sizing
-    _pad = 8
-    _sep = 4
+    # _pad = 8
+    # _sep = 4
     _height = 20
 
     def __init__(self, left, right, style="flat round"):
         self.left = left
         self.right = right
         self.style = style
-
-        # NOTE: this is trimming off the rounded edges along the bttm
-        # if style == 'plastic':
-        #     self._height = 18
+        self._lw, self._rw = self._calculate_widths()
 
     def _text_width(self, text):
-        return 7 * len(text)
+        # omg. let's weight by char in a lazy lazy way, python
+        def _count(pattern, term):
+            parts = re.subn(re.compile(pattern), '', term)
+            return parts[0], parts[1]
+
+        weights = [
+            ('[ilj]', 0.3),
+            ('[mw]', 1.4),
+            ('[ABCDEFGHIJKLNOPQRSTUVXYZ]', 0.9),
+            ('[MW]', 1.5)
+        ]
+
+        new_term = text
+        length = 0
+        for pttn, weight in weights:
+            new_term, removed = _count(pttn, new_term)
+            length += round(removed * weight)
+        length += len(new_term)
+
+        return 7 * length
 
     def _calculate_widths(self):
-        right_width = self._sep + \
-            self._text_width(self.right.get("text")) + \
-            self._pad
-        left_width = self._pad + \
-            self._text_width(self.left.get("text")) + \
-            self._sep
-        return left_width, right_width, left_width + right_width
+        right_width = self._text_width(self.right.get("text")) + 10
+        left_width = self._text_width(self.left.get("text")) + 10
+        return left_width, right_width
 
     # svg fragments
     def _generate_linear_gradient(self):
@@ -64,27 +77,27 @@ class Badge():
             lg.add_stop_color(offset=1, opacity=".5")
         return lg
 
-    def _generate_mask(self, tw):
+    def _generate_mask(self):
         mask = svgwrite.masking.Mask(**{"id": "background_mask"})
         mask_rect = svgwrite.shapes.Rect(
-            size=(tw, self._height),
+            size=(self._lw + self._rw, self._height),
             rx=3,
             **{"fill": "#fff"}
         )
         mask.add(mask_rect)
         return mask
 
-    def _generate_background(self, lw, rw, tw):
+    def _generate_background(self):
         if self.style == 'flat square':
             group = svgwrite.container.Group(
                 **{"shape-rendering": "crispEdges"})
             group.add(svgwrite.shapes.Rect(
-                size=(lw, self._height),
+                size=(self._lw, self._height),
                 **{"fill": self.left.get('background', '#555')})
             )
             group.add(svgwrite.shapes.Rect(
-                size=(rw, self._height),
-                insert=(lw, 0),
+                size=(self._rw, self._height),
+                insert=(self._lw, 0),
                 **{"fill": self.right.get('background')})
             )
             return group
@@ -93,22 +106,22 @@ class Badge():
         group = svgwrite.container.Group(**{"mask": "url(#background_mask)"})
         group.add(svgwrite.path.Path(
             d="M0 0h%(left)sv%(height)sH0z" % {
-                "height": self._height, "left": lw},
+                "height": self._height, "left": self._lw},
             **{"fill": self.left.get('background', '#555')}
         ))
         group.add(svgwrite.path.Path(
             d="M%(left)s 0h%(right)sv%(height)sH%(left)sz" % {
-                "height": self._height, "left": lw, "right": rw},
+                "height": self._height, "left": self._lw, "right": self._rw},
             **{"fill": self.right.get('background')}
         ))
         group.add(svgwrite.path.Path(
             d="M0 0h%(total)sv%(height)sH0z" % {
-                "height": self._height, "total": tw},
+                "height": self._height, "total": self._lw + self._rw},
             **{"fill": "url(#linear_gradient)"}
         ))
         return group
 
-    def _generate_text_group(self, lw, rw):
+    def _generate_text_group(self):
         '''
         NOTE: the y values are taken from the shields.io templates
         '''
@@ -123,7 +136,7 @@ class Badge():
         if self.style == 'flat square':
             group.add(svgwrite.text.Text(
                 text=self.left.get('text'),
-                x=[str((lw / 2) + 1)],
+                x=[str((self._lw / 2) + 1)],
                 y=['14']
             ))
 
@@ -131,7 +144,7 @@ class Badge():
                 a = svgwrite.container.Hyperlink(self.right.get('href'))
                 a.add(svgwrite.text.Text(
                     text=self.right.get('text'),
-                    x=[str(lw + (rw / 2) - 1)],
+                    x=[str(self._lw + self._rw / 2 - 1)],
                     y=['14'],
                     **{'id': 'rlink'}
                 ))
@@ -139,12 +152,12 @@ class Badge():
             else:
                 group.add(svgwrite.text.Text(
                     text=self.right.get('text'),
-                    x=[str(lw + (rw / 2) - 1)],
+                    x=[str(self._lw + self._rw / 2 - 1)],
                     y=['14']
                 ))
         elif self.style == 'flat round':
             # left
-            lx = (lw / 2)  # + 1
+            lx = self._lw / 2
             group.add(svgwrite.text.Text(
                 text=self.left.get('text'),
                 x=[str(lx)],
@@ -158,7 +171,7 @@ class Badge():
             ))
 
             # right
-            lx = lw + (rw / 2) - 1
+            lx = self._lw + self._rw / 2 - 1
             group.add(svgwrite.text.Text(
                 text=self.right.get('text'),
                 x=[str(lx)],
@@ -182,7 +195,7 @@ class Badge():
                 ))
         elif self.style == 'plastic':
             # left
-            lx = (lw / 2) + 1
+            lx = self._lw / 2 + 1
             group.add(svgwrite.text.Text(
                 text=self.left.get('text'),
                 x=[str(lx)],
@@ -196,7 +209,7 @@ class Badge():
             ))
 
             # right
-            lx = lw + (rw / 2) - 1
+            lx = self._lw + self._rw / 2 - 1
             group.add(svgwrite.text.Text(
                 text=self.right.get('text'),
                 x=[str(lx)],
@@ -224,14 +237,13 @@ class Badge():
 
     def generate_badge(self):
         # now with styles
-        lw, rw, tw = self._calculate_widths()
 
         # build the svg
         extras = {"xmlns": "http://www.w3.org/2000/svg"}
         if 'href' in self.left or 'href' in self.right:
             extras["xmlns:xlink"] = "http://www.w3.org/1999/xlink"
         svg = svgwrite.container.SVG(
-            size=(tw, self._height),
+            size=(self._lw + self._rw, self._height),
             **extras
         )
 
@@ -245,17 +257,17 @@ class Badge():
         if self.style in ['flat round', 'plastic']:
             svg.add(self._generate_linear_gradient())
 
-            svg.add(self._generate_mask(tw))
+            svg.add(self._generate_mask())
 
-        svg.add(self._generate_background(lw, rw, tw))
+        svg.add(self._generate_background())
 
-        svg.add(self._generate_text_group(lw, rw))
+        svg.add(self._generate_text_group())
 
         if 'href' in self.left:
             # we add it to the end
             a = svgwrite.container.Hyperlink(href=self.left.get('href'))
             a.add(svgwrite.shapes.Rect(
-                size=(lw, self._height),
+                size=(self._lw, self._height),
                 **{
                     "id": "llink",
                     "fill": "url(#a)",

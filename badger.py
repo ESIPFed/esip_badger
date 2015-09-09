@@ -42,5 +42,4 @@ def get_badge(badge):
 
 
 if __name__ == "__main__":
-    app.debug = True
     app.run()
