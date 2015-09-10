@@ -9,7 +9,7 @@ We have two collections, one for getting at ESIP funded things and one for the r
 
 The API is very simple. There's a single URL with the structure:
 
-> http://52.11.105.140/{badge type}.svg?style={display style}
+> http://52.11.105.140/{badge-type}.svg?style={display style}
 
 where `funded` is one of the supported badge types.
 
