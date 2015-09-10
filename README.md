@@ -9,7 +9,7 @@ We have two collections, one for getting at ESIP funded things and one for the r
 
 The API is very simple. There's a single URL with the structure:
 
-> http://52.11.105.140/{badge-type}.svg?style={display style}
+> http://52.11.105.140/{badge-type}.svg?style={display-style}
 
 where `funded` is one of the supported badge types.
 
@@ -23,9 +23,9 @@ to the Markdown (as an `img` element or through another available SVG rendering 
 
 ####Parameter Options
 
-**badge_type:** funded | testbed | fundingfriday | member | collaborator
+**badge-type:** funded | testbed | fundingfriday | member | collaborator
 
-**style:** flat-round | plastic | flat-square
+**display-style:** flat-round | plastic | flat-square
 
 
 ####Examples
