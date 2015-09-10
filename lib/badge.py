@@ -24,8 +24,6 @@ class Badge():
     '''
 
     # default sizing
-    # _pad = 8
-    # _sep = 4
     _height = 20
 
     def __init__(self, left, right, style="flat round"):
@@ -51,10 +49,10 @@ class Badge():
         length = 0
         for pttn, weight in weights:
             new_term, removed = _count(pttn, new_term)
-            length += round(removed * weight)
+            length += removed * weight
         length += len(new_term)
 
-        return 7 * length
+        return round(7 * length)
 
     def _calculate_widths(self):
         right_width = self._text_width(self.right.get("text")) + 10
