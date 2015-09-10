@@ -23,8 +23,9 @@ to the Markdown (as an `img` element or through another available SVG rendering 
 
 ####Parameter Options
 
-badge_type: funded | testbed | fundingfriday | member | collaborator
-style: flat-round | plastic | flat-square
+**badge_type:** funded | testbed | fundingfriday | member | collaborator
+
+**style:** flat-round | plastic | flat-square
 
 
 ####Examples
