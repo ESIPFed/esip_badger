@@ -197,13 +197,13 @@ class Badge():
             group.add(svgwrite.text.Text(
                 text=self.left.get('text'),
                 x=[str(lx)],
-                y=['14'],
+                y=['15'],
                 **{"fill": "#010101", "fill-opacity": ".3"}
             ))
             group.add(svgwrite.text.Text(
                 text=self.left.get('text'),
                 x=[str(lx)],
-                y=['13']
+                y=['14']
             ))
 
             # right
@@ -211,7 +211,7 @@ class Badge():
             group.add(svgwrite.text.Text(
                 text=self.right.get('text'),
                 x=[str(lx)],
-                y=['14'],
+                y=['15'],
                 **{"fill": "#010101", "fill-opacity": ".3"}
             ))
 
@@ -228,7 +228,7 @@ class Badge():
                 group.add(svgwrite.text.Text(
                     text=self.right.get('text'),
                     x=[str(lx)],
-                    y=['13']
+                    y=['14']
                 ))
 
         return group

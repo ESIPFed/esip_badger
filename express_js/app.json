@@ -1,6 +1,0 @@
-{
-  "name": "ESIP Badger",
-  "description": "Highlight repositories related to ESIP projects.",
-  "repository": "https://github.com/roomthily/esip-badger",
-  "keywords": ["node", "esip", "badge"]
-}
