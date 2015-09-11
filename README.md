@@ -48,9 +48,7 @@ modifying the SVG request as necessary. That displays as: <a href="http://esipfe
 
 ####Notes
 
-It is not pixel-perfect compared to the shields.io badges (server-side python estimation without typeface info). 
-
-The ESIP side does include a link. This doesn't appear in the IPy or, often, in Chrome. 
+It is not pixel-perfect compared to the shields.io badges (server-side python estimation without typeface info).
 
 The URL in the provided examples are volatile while testing. Use at your own risk (or, better, not at all just yet).
 
