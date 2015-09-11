@@ -4,7 +4,6 @@ app = Flask(__name__)
 from flask import request, make_response, abort
 from lib.badge import Badge
 
-# this can include a link (key: href)
 _badge_types = {
     "funded": {"background": "#A1D3E4", "text": "Funded"},
     "fundingfriday": {"background": "#A1D3E4", "text": "FUNding Friday"},
@@ -13,7 +12,7 @@ _badge_types = {
     "collaborator": {"background": "#3FA1B9", "text": "Collaborator"}
 }
 
-_esip = {"text": "ESIP", "href": "http://esipfed.org"}
+_esip = {"text": "ESIP"}
 
 
 @app.route("/<badge>.svg")
