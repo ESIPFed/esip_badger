@@ -21,6 +21,14 @@ Using it in one's documentation is as simple as adding:
 
 to the Markdown (as an `img` element or through another available SVG rendering method).
 
+That method will only render the image wihout any links. To include a link to the ESIP site, use:
+
+```
+<a href="http://esipfed.org">![](http://52.11.105.140/funded.svg)</a>
+```
+
+modifying the SVG request as necessary.
+
 ####Parameter Options
 
 **badge-type:** funded | testbed | fundingfriday | member | collaborator
