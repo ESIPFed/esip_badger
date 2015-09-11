@@ -205,8 +205,6 @@ class Badge():
 
         # build the svg
         extras = {"xmlns": "http://www.w3.org/2000/svg"}
-        if 'href' in self.left or 'href' in self.right:
-            extras["xmlns:xlink"] = "http://www.w3.org/1999/xlink"
         svg = svgwrite.container.SVG(
             size=(self._lw + self._rw, self._height),
             **extras
