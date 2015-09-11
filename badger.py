@@ -2,7 +2,7 @@ from flask import Flask
 app = Flask(__name__)
 
 from flask import request, make_response, abort
-from lib.badge import Badge
+from badge.badge import Badge
 
 _badge_types = {
     "funded": {"background": "#A1D3E4", "text": "Funded"},

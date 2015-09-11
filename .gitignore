@@ -1,2 +1,11 @@
 *.pyc
 notebooks/.ipynb_checkpoints
+
+# Virtualenv
+.Python
+bin
+lib
+include
+badger_env
+
+*.sock
