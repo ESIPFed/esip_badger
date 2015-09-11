@@ -27,7 +27,7 @@ That method will only render the image wihout any links. To include a link to th
 <a href="http://esipfed.org">![](http://52.11.105.140/funded.svg)</a>
 ```
 
-modifying the SVG request as necessary.
+modifying the SVG request as necessary. That displays as: <a href="http://esipfed.org">![](http://52.11.105.140/funded.svg)</a>
 
 ####Parameter Options
 
