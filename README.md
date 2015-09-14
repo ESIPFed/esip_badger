@@ -1,6 +1,8 @@
 ESIP Badger
 ===========
 
+<a href="http://esipfed.org">![](http://52.11.105.140/roomthily/esip_badger/fundingfriday.svg)</a>
+
 ##ESIP Badge Design
 
 This is the initial round of possible badges for the ESIP community. The structure and styles are based on the shields.io project (public domain) and a de facto standard for Github badging. 
@@ -58,9 +60,10 @@ modifying the SVG request as necessary. That displays as: <a href="http://esipfe
 | <img style="float:left;" src="http://52.11.105.140/member.svg"> | <img style="float:left;" src="http://52.11.105.140/member.svg?style=plastic"> | <img style="float:left;" src="http://52.11.105.140/member.svg?style=flat-square"> |
 | <img style="float:left;" src="http://52.11.105.140/collaborator.svg"> | <img style="float:left;" src="http://52.11.105.140/collaborator.svg?style=plastic"> | <img style="float:left;" src="http://52.11.105.140/collaborator.svg?style=flat-square"> |
 
+
 ####Notes
 
-It is not pixel-perfect compared to the shields.io badges (server-side python estimation without typeface info).
+It is not pixel-perfect compared to the shields.io badges (server-side python estimation without typeface info). Nor is it pixel-perfect between terms.
 
 The URL in the provided examples are volatile while testing. Use at your own risk (or, better, not at all just yet).
 
@@ -68,13 +71,15 @@ The URL in the provided examples are volatile while testing. Use at your own ris
 Installation
 ============
 
-Coming soon.
+Refer to [INSTALL](INSTALL.md) for the details.
 
 
 Acknowledgements
 ================
 
-Based on badges/shields and rausch/slackin
+This project is supported by an ESIP Federation FUNding Friday award, Summer Meeting 2015. 
+
+Based on [badges/shields](https://github.com/badges/shields) and [rauchg/slackin](https://github.com/rauchg/slackin).
 
 
 License
