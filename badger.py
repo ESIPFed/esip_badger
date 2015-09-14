@@ -35,7 +35,7 @@ def get_badge(badge):
     svg = badger.generate_badge()
     rsp = make_response(svg, 200)
     rsp.headers['Content-Type'] = 'image/svg+xml;charset=utf-8'
-    rsp.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+    rsp.headers['Cache-Control'] = 'no-cache'
 
     return rsp
 
