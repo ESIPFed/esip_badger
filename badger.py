@@ -16,7 +16,8 @@ _esip = {"text": "ESIP"}
 
 
 @app.route("/<badge>.svg")
-def get_badge(badge):
+@app.route("/<user>/<repository>/<badge>.svg")
+def get_badge(badge, user=None, repository=None):
     '''
     routing:
         badge: effectively the text on the right side
@@ -24,6 +25,10 @@ def get_badge(badge):
     query params:
         style: plastic | flat-round | flat-square (same as shields.io)
                default is flat (coded as 'flat round')
+
+        # for the default basic badge request
+        user: account alias (non-functional, analytics only)
+        repository: code repository name (non-functional, analytics only)
     '''
     style = request.args.get('style', 'flat-round').replace('-', ' ')
 
