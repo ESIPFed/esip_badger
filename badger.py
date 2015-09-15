@@ -29,14 +29,18 @@ def get_badge(badge, user=None, repository=None):
         # for the default basic badge request
         user: account alias (non-functional, analytics only)
         repository: code repository name (non-functional, analytics only)
+
+        # for the lefthand style options (logo, esip)
+        display: logo | text (default is text)
     '''
     style = request.args.get('style', 'flat-round').replace('-', ' ')
+    display = request.args.get('display', 'text').lower()
 
     right = _badge_types.get(badge.lower(), {})
     if not right:
         abort(404)
 
-    badger = Badge(_esip, right, style=style)
+    badger = Badge(_esip, right, style=style, display=display)
     svg = badger.generate_badge()
     rsp = make_response(svg, 200)
     rsp.headers['Content-Type'] = 'image/svg+xml;charset=utf-8'

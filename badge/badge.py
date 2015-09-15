@@ -2,6 +2,7 @@
 
 import svgwrite
 import re
+from flask import url_for
 
 
 class Badge():
@@ -17,14 +18,19 @@ class Badge():
             "background": "#eee"
         }
 
-    supports shields.io plastic, flat round and flat square styles
-    and href links for left and right.
+    supports shields.io plastic, flat round and flat square styles.
     '''
 
     # default sizing
     _height = 20
 
-    def __init__(self, left, right, style="flat round"):
+    # logo defaults (hardcoded for design feedback)
+    _logo_width = 29
+    _logo_height = 18
+    _logo_padding = 3
+    _logo_filename = 'ESIP-logo_small.png'
+
+    def __init__(self, left, right, style="flat round", display="text"):
         self.left = left
         self.right = right
         self.style = style
@@ -200,11 +206,21 @@ class Badge():
 
         return group
 
+    def _generate_image(self):
+        # this is inserted 
+        return svgwrite.image.Image(
+            url_for('static', self._logo_filename),
+            insert=(5, 3),
+            size=(self._logo_width, self._logo_height)
+        )
+
     def generate_badge(self):
         # now with styles
 
         # build the svg
         extras = {"xmlns": "http://www.w3.org/2000/svg"}
+        if self.display in ['logo']:
+            extras['xmlns:xlink'] = 'http://www.w3.org/1999/xlink'
         svg = svgwrite.container.SVG(
             size=(self._lw + self._rw, self._height),
             **extras
@@ -216,6 +232,9 @@ class Badge():
             svg.add(self._generate_mask())
 
         svg.add(self._generate_background())
+
+        if self.display in ['logo']:
+
 
         svg.add(self._generate_text_group())
 
