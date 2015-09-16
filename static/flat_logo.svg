@@ -12,7 +12,7 @@
 		<path d="M0 0h119v20H0z" fill="url(#linear_gradient)" />
 	</g>
 	<g fill="#fff" font-family="DejaVu Sans,Verdana,Geneva,sans-serif" font-size="11" text-anchor="middle">
-		<image xlink:href="ESIP-logo_small_white.png" x="5" y="3" width="27" height="16.5" />
+		<image xlink:href="esip-logo_small_white.svg" x="5" y="2" width="27" height="16" />
 		<text fill="#010101" fill-opacity=".3" x="76" y="15">Collaborator</text>
 		<text x="76" y="14">Collaborator</text>
 	</g>

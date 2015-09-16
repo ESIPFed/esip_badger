@@ -25,10 +25,10 @@ class Badge():
     _height = 20
 
     # logo defaults (hardcoded for design feedback)
-    _logo_width = 29
-    _logo_height = 18
+    _logo_width = 27  # 47
+    _logo_height = 16.5  # 24
     _logo_padding = 3
-    _logo_filename = 'ESIP-logo_small.png'
+    _logo_filename = 'esip-logo_small_white.svg'
 
     def __init__(self, left, right, style="flat round", display="text"):
         self.left = left
@@ -207,7 +207,7 @@ class Badge():
         return group
 
     def _generate_image(self):
-        # this is inserted 
+        # this is inserted
         return svgwrite.image.Image(
             url_for('static', self._logo_filename),
             insert=(5, 3),
@@ -234,7 +234,7 @@ class Badge():
         svg.add(self._generate_background())
 
         if self.display in ['logo']:
-
+            pass
 
         svg.add(self._generate_text_group())
 
