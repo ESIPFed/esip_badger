@@ -29,11 +29,13 @@ class Badge():
     _logo_height = 16.5  # 24
     _logo_padding = 3
     _logo_filename = 'esip-logo_small_white.svg'
+    _logo_inserts = (5, 2)
 
     def __init__(self, left, right, style="flat round", display="text"):
         self.left = left
         self.right = right
         self.style = style
+        self.display = display
         self._lw, self._rw = self._calculate_widths()
 
     def _text_width(self, text):
@@ -59,8 +61,10 @@ class Badge():
         return round(7 * length)
 
     def _calculate_widths(self):
+        # aaaand we just borked the little bit of generic handling for text
+        left_width = self._text_width(self.left.get("text")) + 10 if \
+            self.display == 'text' else self._logo_width + 10
         right_width = self._text_width(self.right.get("text")) + 10
-        left_width = self._text_width(self.left.get("text")) + 10
         return left_width, right_width
 
     # svg fragments
@@ -136,11 +140,16 @@ class Badge():
         group = svgwrite.container.Group(**tg)
 
         if self.style == 'flat square':
-            group.add(svgwrite.text.Text(
-                text=self.left.get('text'),
-                x=[str((self._lw / 2) + 1)],
-                y=['14']
-            ))
+            if self.display == 'logo':
+                group.add(
+                    self._generate_image()
+                )
+            else:
+                group.add(svgwrite.text.Text(
+                    text=self.left.get('text'),
+                    x=[str((self._lw / 2) + 1)],
+                    y=['14']
+                ))
 
             group.add(svgwrite.text.Text(
                 text=self.right.get('text'),
@@ -149,18 +158,23 @@ class Badge():
             ))
         elif self.style == 'flat round':
             # left
-            lx = self._lw / 2
-            group.add(svgwrite.text.Text(
-                text=self.left.get('text'),
-                x=[str(lx)],
-                y=['15'],
-                **{"fill": "#010101", "fill-opacity": ".3"}
-            ))
-            group.add(svgwrite.text.Text(
-                text=self.left.get('text'),
-                x=[str(lx)],
-                y=['14']
-            ))
+            if self.display == 'logo':
+                group.add(
+                    self._generate_image()
+                )
+            else:
+                lx = self._lw / 2
+                group.add(svgwrite.text.Text(
+                    text=self.left.get('text'),
+                    x=[str(lx)],
+                    y=['15'],
+                    **{"fill": "#010101", "fill-opacity": ".3"}
+                ))
+                group.add(svgwrite.text.Text(
+                    text=self.left.get('text'),
+                    x=[str(lx)],
+                    y=['14']
+                ))
 
             # right
             lx = self._lw + self._rw / 2 - 1
@@ -176,19 +190,24 @@ class Badge():
                 y=['14']
             ))
         elif self.style == 'plastic':
-            # left
-            lx = self._lw / 2 + 1
-            group.add(svgwrite.text.Text(
-                text=self.left.get('text'),
-                x=[str(lx)],
-                y=['15'],
-                **{"fill": "#010101", "fill-opacity": ".3"}
-            ))
-            group.add(svgwrite.text.Text(
-                text=self.left.get('text'),
-                x=[str(lx)],
-                y=['14']
-            ))
+            if self.display == 'logo':
+                group.add(
+                    self._generate_image()
+                )
+            else:
+                # left
+                lx = self._lw / 2 + 1
+                group.add(svgwrite.text.Text(
+                    text=self.left.get('text'),
+                    x=[str(lx)],
+                    y=['15'],
+                    **{"fill": "#010101", "fill-opacity": ".3"}
+                ))
+                group.add(svgwrite.text.Text(
+                    text=self.left.get('text'),
+                    x=[str(lx)],
+                    y=['14']
+                ))
 
             # right
             lx = self._lw + self._rw / 2 - 1
@@ -207,10 +226,10 @@ class Badge():
         return group
 
     def _generate_image(self):
-        # this is inserted
+        # this is inserted in the text block as is
         return svgwrite.image.Image(
-            url_for('static', self._logo_filename),
-            insert=(5, 3),
+            url_for('static', filename=self._logo_filename),
+            insert=self._logo_inserts,
             size=(self._logo_width, self._logo_height)
         )
 

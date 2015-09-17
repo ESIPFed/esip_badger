@@ -50,4 +50,5 @@ def get_badge(badge, user=None, repository=None):
 
 
 if __name__ == "__main__":
+    app.debug = True
     app.run(host='0.0.0.0')
