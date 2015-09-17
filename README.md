@@ -35,6 +35,10 @@ That method will only render the image without any links. To include a link to t
 
 modifying the SVG request as necessary. That displays as: <a href="http://esipfed.org">![](http://52.11.105.140/roomthily/esip_badger/funded.svg)</a>
 
+
+<a href="http://esipfed.org">![](http://52.11.105.140/roomthily/esip_badger/funded.svg?display=logo)</a>
+
+
 ####Parameter Options
 
 **badge-type:** funded | testbed | fundingfriday | member | collaborator
