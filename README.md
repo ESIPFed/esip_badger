@@ -35,15 +35,22 @@ That method will only render the image without any links. To include a link to t
 
 modifying the SVG request as necessary. That displays as: <a href="http://esipfed.org">![](http://52.11.105.140/roomthily/esip_badger/funded.svg)</a>
 
+The `display` query parameter provides the option to display the ESIP logo on the left side:
 
-<a href="http://esipfed.org">![](http://52.11.105.140/roomthily/esip_badger/funded.svg?display=logo)</a>
+```
+<img src="http://52.11.105.140/funded.svg?display=logo">
+```
+
+generating: <a href="http://esipfed.org">![](http://52.11.105.140/funded.svg?display=logo)</a>
 
 
 ####Parameter Options
 
 **badge-type:** funded | testbed | fundingfriday | member | collaborator
 
-**display-style:** flat-round | plastic | flat-square
+**display-style:** flat-round (default) | plastic | flat-square
+
+**display-option:** logo | text (default)
 
 **user:** Github user name
 
@@ -54,7 +61,7 @@ modifying the SVG request as necessary. That displays as: <a href="http://esipfe
 > http://52.11.105.140/roomthily/esip_badger/fundingfriday.svg
 
 
-####Examples
+####Text Examples
 
 | Rounded | Plastic | Flat |
 |:--------|:--------|:-----|
@@ -63,6 +70,17 @@ modifying the SVG request as necessary. That displays as: <a href="http://esipfe
 | <img style="float:left;" src="http://52.11.105.140/fundingfriday.svg"> | <img style="float:left;" src="http://52.11.105.140/fundingfriday.svg?style=plastic"> | <img style="float:left;" src="http://52.11.105.140/fundingfriday.svg?style=flat-square"> |
 | <img style="float:left;" src="http://52.11.105.140/member.svg"> | <img style="float:left;" src="http://52.11.105.140/member.svg?style=plastic"> | <img style="float:left;" src="http://52.11.105.140/member.svg?style=flat-square"> |
 | <img style="float:left;" src="http://52.11.105.140/collaborator.svg"> | <img style="float:left;" src="http://52.11.105.140/collaborator.svg?style=plastic"> | <img style="float:left;" src="http://52.11.105.140/collaborator.svg?style=flat-square"> |
+
+
+####Logo Examples
+
+| Rounded | Plastic | Flat |
+|:--------|:--------|:-----|
+| <img style="float:left;" src="http://52.11.105.140/funded.svg?display=logo"> | <img style="float:left;" src="http://52.11.105.140/funded.svg?style=plastic&display=logo"> | <img style="float:left;" src="http://52.11.105.140/funded.svg?style=flat-square&display=logo"> |
+| <img style="float:left;" src="http://52.11.105.140/testbed.svg?display=logo"> | <img style="float:left;" src="http://52.11.105.140/testbed.svg?style=plastic&display=logo"> | <img style="float:left;" src="http://52.11.105.140/testbed.svg?style=flat-square&display=logo"> |
+| <img style="float:left;" src="http://52.11.105.140/fundingfriday.svg?display=logo"> | <img style="float:left;" src="http://52.11.105.140/fundingfriday.svg?style=plastic&display=logo"> | <img style="float:left;" src="http://52.11.105.140/fundingfriday.svg?style=flat-square&display=logo"> |
+| <img style="float:left;" src="http://52.11.105.140/member.svg?display=logo"> | <img style="float:left;" src="http://52.11.105.140/member.svg?style=plastic&display=logo"> | <img style="float:left;" src="http://52.11.105.140/member.svg?style=flat-square&display=logo"> |
+| <img style="float:left;" src="http://52.11.105.140/collaborator.svg?display=logo"> | <img style="float:left;" src="http://52.11.105.140/collaborator.svg?style=plastic&display=logo"> | <img style="float:left;" src="http://52.11.105.140/collaborator.svg?style=flat-square&display=logo"> |
 
 
 ####Notes
