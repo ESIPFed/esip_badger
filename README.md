@@ -7,7 +7,7 @@ ESIP Badger
 
 This is the initial round of possible badges for the ESIP community. The structure and styles are based on the shields.io project (public domain) and a de facto standard for Github badging. 
 
-We have two collections, one for getting at ESIP funded things and one for the relationship to ESIP. For funding, the tags are Funded, FUNding Friday and Testbed. For the relationships, it's Member and Collaborator. 
+We have three collections, one for getting at ESIP funded (or supported) things, one for the relationship to ESIP, and one for the collaboration areas/clusters. For funding/supported, the tags are Funded, FUNding Friday and Testbed. For the relationships, it's Member and Collaborator.
 
 The API is very simple. There's a single URL with the structure:
 
@@ -59,6 +59,31 @@ generating: <a href="http://esipfed.org">![](http://52.11.105.140/funded.svg?dis
 `account` and `repo` are accepted for basic analytic purposes only, ex:
 
 > http://52.11.105.140/roomthily/esip_badger/fundingfriday.svg
+
+**Values for Collaboration Areas
+
+- agclimate : Agriculture & Climate
+- climateed : Climate Education
+- cloud : Cloud Computing
+- datasteward : Data Stewardship
+- datastudy : Data Study
+- disasters : Disasters
+- discovery : Discovery
+- documentation : Documentation
+- drones : Drones
+- drupal : Drupal
+- esda : Earth Science Data Analytics
+- education : Education
+- energyclimate : Energy & Climate
+- envirosensing : Envirosensing
+- infoquality : Information Quality
+- infotech : Information Technology & Interoperability
+- libraries : Libraries
+- products : Products & Services
+- sciencesoftware : Science Software
+- semanticweb : Semantic Web
+- visioneers : Visioneers
+- webservices : Web Services
 
 
 ####Text Examples
