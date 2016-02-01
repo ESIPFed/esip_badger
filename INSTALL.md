@@ -76,7 +76,7 @@ with this configuration:
 ```
 server {
         listen 80;
-        server_name {Public IP};
+        server_name {Public IP | host};
 
         location / {
                 include proxy_params;
