@@ -80,6 +80,7 @@ generating: <a href="http://esipfed.org">![](http://badge.esipfed.org/funded.svg
 - infotech : Information Technology & Interoperability
 - libraries : Libraries
 - products : Products & Services
+- scicomm: Science Communication
 - sciencesoftware : Science Software
 - semanticweb : Semantic Web
 - visioneers : Visioneers

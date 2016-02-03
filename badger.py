@@ -31,6 +31,7 @@ _badge_types = {
     "infotech": {"background": "#A1D3E4", "text": "Information Technology & Interoperability"},
     "libraries": {"background": "#A1D3E4", "text": "Libraries"},
     "products": {"background": "#A1D3E4", "text": "Products & Services"},
+    "scicomm": {"background": "#A1D3E4", "text": "Science Communication"},
     "sciencesoftware": {"background": "#A1D3E4", "text": "Science Software"},
     "semanticweb": {"background": "#A1D3E4", "text": "Semantic Web"},
     "visioneers": {"background": "#A1D3E4", "text": "Visioneers"},
