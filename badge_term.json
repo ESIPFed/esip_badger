@@ -1,12 +1,11 @@
 {
-    # supported
     "funded": {"background": "#A1D3E4", "text": "Funded"},
     "fundingfriday": {"background": "#A1D3E4", "text": "FUNding Friday"},
     "testbed": {"background": "#A1D3E4", "text": "Testbed"},
-    # membership
+
     "member": {"background": "#3FA1B9", "text": "Member"},
     "collaborator": {"background": "#3FA1B9", "text": "Collaborator"},
-    # clusters
+
     "agclimate": {"background": "#A1D3E4", "text": "Agriculture & Climate"},
     "climateed": {"background": "#A1D3E4", "text": "Climate Education"},
     "cloud": {"background": "#A1D3E4", "text": "Cloud Computing"},
