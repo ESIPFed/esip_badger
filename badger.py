@@ -3,40 +3,8 @@ app = Flask(__name__)
 
 from flask import request, make_response, abort
 from badge.badge import Badge
+import json
 
-_badge_types = {
-    # supported
-    "funded": {"background": "#A1D3E4", "text": "Funded"},
-    "fundingfriday": {"background": "#A1D3E4", "text": "FUNding Friday"},
-    "testbed": {"background": "#A1D3E4", "text": "Testbed"},
-    # membership
-    "member": {"background": "#3FA1B9", "text": "Member"},
-    "collaborator": {"background": "#3FA1B9", "text": "Collaborator"},
-    # clusters
-    "agclimate": {"background": "#A1D3E4", "text": "Agriculture & Climate"},
-    "climateed": {"background": "#A1D3E4", "text": "Climate Education"},
-    "cloud": {"background": "#A1D3E4", "text": "Cloud Computing"},
-    "datasteward": {"background": "#A1D3E4", "text": "Data Stewardship"},
-    "datastudy": {"background": "#A1D3E4", "text": "Data Study"},
-    "disasters": {"background": "#A1D3E4", "text": "Disasters"},
-    "discovery": {"background": "#A1D3E4", "text": "Discovery"},
-    "documentation": {"background": "#A1D3E4", "text": "Documentation"},
-    "drones": {"background": "#A1D3E4", "text": "Drones"},
-    "drupal": {"background": "#A1D3E4", "text": "Drupal"},
-    "esda": {"background": "#A1D3E4", "text": "Earth Science Data Analytics"},
-    "education": {"background": "#A1D3E4", "text": "Education"},
-    "energyclimate": {"background": "#A1D3E4", "text": "Energy & Climate"},
-    "envirosensing": {"background": "#A1D3E4", "text": "Envirosensing"},
-    "infoquality": {"background": "#A1D3E4", "text": "Information Quality"},
-    "infotech": {"background": "#A1D3E4", "text": "Information Technology & Interoperability"},
-    "libraries": {"background": "#A1D3E4", "text": "Libraries"},
-    "products": {"background": "#A1D3E4", "text": "Products & Services"},
-    "scicomm": {"background": "#A1D3E4", "text": "Science Communication"},
-    "sciencesoftware": {"background": "#A1D3E4", "text": "Science Software"},
-    "semanticweb": {"background": "#A1D3E4", "text": "Semantic Web"},
-    "visioneers": {"background": "#A1D3E4", "text": "Visioneers"},
-    "webservices": {"background": "#A1D3E4", "text": "Web Services"}
-}
 
 _esip = {"text": "ESIP"}
 
@@ -62,7 +30,10 @@ def get_badge(badge, user=None, repository=None):
     style = request.args.get('style', 'flat-round').replace('-', ' ')
     display = request.args.get('display', 'text').lower()
 
-    right = _badge_types.get(badge.lower(), {})
+    with open('badge_term.json', 'r') as f:
+        badge_types = json.loads(f.read())
+
+    right = badge_types.get(badge.lower(), {})
     if not right:
         abort(404)
 
