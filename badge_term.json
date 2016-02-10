@@ -27,6 +27,7 @@
     "scicomm": {"background": "#A1D3E4", "text": "Science Communication"},
     "sciencesoftware": {"background": "#A1D3E4", "text": "Science Software"},
     "semanticweb": {"background": "#A1D3E4", "text": "Semantic Web"},
+    "sustainabledata": {"background": "#A1D3E4", "text": "Sustainable Data Management"},
     "visioneers": {"background": "#A1D3E4", "text": "Visioneers"},
     "webservices": {"background": "#A1D3E4", "text": "Web Services"}
 }

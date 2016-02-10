@@ -83,6 +83,7 @@ generating: <a href="http://esipfed.org">![](http://badge.esipfed.org/funded.svg
 - scicomm: Science Communication
 - sciencesoftware : Science Software
 - semanticweb : Semantic Web
+- sustainabledata : Sustainable Data Management
 - visioneers : Visioneers
 - webservices : Web Services
 
