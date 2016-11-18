@@ -63,6 +63,7 @@ generating: <a href="http://esipfed.org">![](http://badge.esipfed.org/funded.svg
 **Values for Collaboration Areas
 
 - agclimate : Agriculture & Climate
+- cleannetwork: The Clean Network
 - climateed : Climate Education
 - cloud : Cloud Computing
 - datasteward : Data Stewardship
@@ -84,6 +85,7 @@ generating: <a href="http://esipfed.org">![](http://badge.esipfed.org/funded.svg
 - sciencesoftware : Science Software
 - semanticweb : Semantic Web
 - sustainabledata : Sustainable Data Management
+- usability: Usability
 - visioneers : Visioneers
 - webservices : Web Services
 
