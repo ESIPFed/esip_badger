@@ -7,6 +7,7 @@
     "collaborator": {"background": "#3FA1B9", "text": "Collaborator"},
 
     "agclimate": {"background": "#A1D3E4", "text": "Agriculture & Climate"},
+    "cleannetwork": {"background": "#A1D3E4", "text": "The CLEAN Network"},
     "climateed": {"background": "#A1D3E4", "text": "Climate Education"},
     "cloud": {"background": "#A1D3E4", "text": "Cloud Computing"},
     "datasteward": {"background": "#A1D3E4", "text": "Data Stewardship"},
@@ -28,6 +29,7 @@
     "sciencesoftware": {"background": "#A1D3E4", "text": "Science Software"},
     "semanticweb": {"background": "#A1D3E4", "text": "Semantic Web"},
     "sustainabledata": {"background": "#A1D3E4", "text": "Sustainable Data Management"},
+    "usability": {"background": "#A1D3E4", "text": "Usability"},
     "visioneers": {"background": "#A1D3E4", "text": "Visioneers"},
     "webservices": {"background": "#A1D3E4", "text": "Web Services"}
 }
