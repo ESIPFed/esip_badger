@@ -4,7 +4,7 @@ This describes how to add new terms or, if other changes are necessary, how to d
 
 ###Adding a new term
 
-The term list is foung in badger.py in the `_badge_types` dictionary. To add a new term, just add a new dictionary element:
+The term list is found in the `badge_terms.json` file. To add a new term, just add a new dictionary element:
 
 ```
 "drones": {"background": "#A1D3E4", "text": "Drones"},
@@ -18,7 +18,7 @@ The list of terms is also in the README so don't forget to update that list (see
 
 Make sure you have an AWS key (\*.pem file) and are able to `ssh` into the instance (generate a key pair associated with the instance, make sure the security group is updated to allow SSH from your IP). Make a note of the `Public DNS` value.
 
-Commit the changes made to badger.py and the README.md and push the changes to the remote on Github. 
+Commit the changes made to `badge_terms.json` and the README.md and push the changes to the remote on Github. 
 
 SSH into the EC2:
 
