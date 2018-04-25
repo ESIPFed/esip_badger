@@ -2,6 +2,7 @@
     "funded": {"background": "#A1D3E4", "text": "Funded"},
     "fundingfriday": {"background": "#A1D3E4", "text": "FUNding Friday"},
     "testbed": {"background": "#A1D3E4", "text": "Testbed"},
+    "lab": {"background": "#A1D3E4", "text": "Lab"},
 
     "member": {"background": "#3FA1B9", "text": "Member"},
     "collaborator": {"background": "#3FA1B9", "text": "Collaborator"},
